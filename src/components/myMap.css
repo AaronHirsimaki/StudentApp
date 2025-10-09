@@ -1,0 +1,74 @@
+#map {
+    height: 100%;
+    width: 100%;
+    margin: 15px;
+}
+
+.barlist {
+  background: white;
+  padding: 1rem;
+  overflow-y: auto;
+  max-height: 23vh;
+  width: 95%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.barlist ul {
+  list-style: none; /* Poistaa ne rumat pallot */
+  padding: 0;
+  margin: 0;
+}
+
+.barlist-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 0.5rem;
+  background: white;
+  border-radius: 8px;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.barlist-item:hover {
+  background: #f0f0f0;
+}
+
+.barlist-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  flex: 1;
+  margin-right: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.barlist-info {
+  display: flex;
+  flex-direction: row;   /* nimi ja osoite vierekkäin */
+  align-items: center;
+  gap: 0.5rem;           /* pieni väli niiden väliin */
+}
+
+.bar-address {
+  font-size: 0.9rem;
+  color: #3d2910;
+  opacity: 0.9;
+}
+
+.barlist-button {
+  background-color: #DEB887;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.barlist-button:hover {
+  background-color: #C9A86A;
+}
