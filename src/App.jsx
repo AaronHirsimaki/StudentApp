@@ -5,6 +5,7 @@ import BarList from './components/BarList/BarList';
 import "./App.css";
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
+import BarPage from './pages/BarPage/BarPage';
 
 function App() {
 
@@ -54,6 +55,7 @@ function App() {
             path="/settings"
             element={<SettingsPage />}
           />
+          <Route path="/bar/:id" element={<BarPage />} />
         </Routes>
       </div>
     </div>

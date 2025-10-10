@@ -27,6 +27,7 @@ export default function MyMap() {
             className: "emoji-icon",
             iconSize: [50, 50],
             iconAnchor: [25, 50],
+            popupAnchor: [0, -30]
         });
 
         leaflet

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import barsData from "../../data/bars.json";
 import "./BarList.css"
 
@@ -7,7 +8,7 @@ export default function BarList() {
         <div className="barlist">
             <ul>
                 {barsData.features.map((feature) => {
-                    const id = feature.properties["@id"];
+                    const id = encodeURIComponent(feature.properties["@id"]);
                     const name = feature.properties.name || "Nimetön Baari";
 
                     // Haetaan osoitetiedot hakasulkeilla
@@ -26,7 +27,9 @@ export default function BarList() {
                                 <strong className="barlist-name">{name}</strong>
                                 {address && <span className="bar-address"> - {address}</span>}
                             </div>
-                            <button className="barlist-button">More</button>
+                            <Link to={`/bar/${id}`} className="barlist-button">
+                                More
+                            </Link>
                         </li>
                     );
                 })}
