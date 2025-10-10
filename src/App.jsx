@@ -1,10 +1,10 @@
 import { Routes, Route, NavLink } from 'react-router-dom';
 import React from 'react';
-import MyMap from './components/myMap';
-import BarList from './components/BarList';
+import MyMap from './components/Map/myMap';
+import BarList from './components/BarList/BarList';
 import "./App.css";
-import ProfilePage from './components/ProfilePage';
-import SettingsPage from './components/SettingsPage';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
+import SettingsPage from './pages/SettingsPage/SettingsPage';
 
 function App() {
 

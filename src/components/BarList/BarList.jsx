@@ -1,5 +1,5 @@
-import barsData from "../data/bars.json";
-import "./myMap.css"
+import barsData from "../../data/bars.json";
+import "./BarList.css"
 
 export default function BarList() {
 

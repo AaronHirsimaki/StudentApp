@@ -1,0 +1,58 @@
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    background-color: #6F4E37;
+    font-size: x-large;
+
+    /* ✨ Animaatio */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-image {
+    width: 170px;
+    height: 170px;
+    border-radius: 30%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    display: block;
+    margin: 0 auto;
+
+    /* pieni oma animaatio esim. scale in */
+    animation: popIn 0.4s ease-out 0.2s forwards;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+@keyframes popIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.profile {
+    background-color: #fff;
+    padding: 5%;
+    border-radius: 5%;
+}

@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./myMap.css";
-import barsData from "../data/bars.json";
+import barsData from "../../data/bars.json";
 
 export default function MyMap() {
 
