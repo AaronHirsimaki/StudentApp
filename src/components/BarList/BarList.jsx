@@ -27,8 +27,8 @@ export default function BarList() {
                                 <strong className="barlist-name">{name}</strong>
                                 {address && <span className="bar-address"> - {address}</span>}
                             </div>
-                            <Link to={`/bar/${id}`} className="barlist-button">
-                                More
+                            <Link to={`/bar/${id}`}>
+                                <button className="barlist-button">More</button>
                             </Link>
                         </li>
                     );

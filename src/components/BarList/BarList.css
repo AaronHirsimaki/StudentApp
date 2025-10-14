@@ -5,6 +5,7 @@
   max-height: 23vh;
   width: 95%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
 .barlist ul {

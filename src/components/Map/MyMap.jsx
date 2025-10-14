@@ -1,20 +1,25 @@
-import { useEffect, useRef } from "react";
-import leaflet from "leaflet";
+import { useEffect, useRef, useState } from "react";
+import { createRoot } from "react-dom/client";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./myMap.css";
 import barsData from "../../data/bars.json";
+import BarPopup from "../BarPopup/BarPopup";
 
 export default function MyMap() {
 
     const mapRef = useRef();
+    const [selectedBar, setSelectedBar] = useState(null);
+    const [popupPosition, setPopupPosition] = useState(null);
+
 
     useEffect(() => {
         if (mapRef.current) return;
 
-        const map = leaflet.map("map").setView([60.1695, 24.9354], 18);
+        const map = L.map("map").setView([60.1695, 24.9354], 18);
         mapRef.current = map;
 
-        leaflet
+        L
             .tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
                 maxZoom: 19,
                 //minZoom: 19,
@@ -22,7 +27,7 @@ export default function MyMap() {
             })
             .addTo(map);
 
-        const beerEmojiIcon = leaflet.divIcon({
+        const beerEmojiIcon = L.divIcon({
             html: "🍺",
             className: "emoji-icon",
             iconSize: [50, 50],
@@ -30,28 +35,53 @@ export default function MyMap() {
             popupAnchor: [0, -30]
         });
 
-        leaflet
+        L
             .geoJSON(barsData, {
-                pointToLayer: (feature, latlng) => leaflet.marker(latlng, { icon: beerEmojiIcon }),
+                pointToLayer: (feature, latlng) => L.marker(latlng, { icon: beerEmojiIcon }),
                 onEachFeature: (feature, layer) => {
-                    if (feature.properties && feature.properties.name) {
-                        layer.bindPopup(`
-                            <div>
-                                <b>${feature.properties.name}</b><br/>
-                                <button>More info</button>
-                            </div>
-                            `);
-                    }
-                }
-            })
-            .addTo(map)
+                    layer.on("click", (event) => {
+                        setSelectedBar(feature);
+                        setPopupPosition(event.latlng);
+                    });
+                },
+            }).addTo(map);
+
+        const closePopupHandler = () => {
+            setSelectedBar(null);
+            setPopupPosition(null);
+        };
+
+        map.on("movestart", closePopupHandler);
+        map.on("zoomstart", closePopupHandler);
+        map.on("dragstart", closePopupHandler);
+        map.on("click", closePopupHandler);      // halutessasi click sulkee myös
+        map.on("touchstart", closePopupHandler); // mobiilikosketus
 
         return () => {
+            // Poistetaan eventit ennen map.remove, jotta ei jää roikkuvia kuulijoita
+            map.off("movestart", closePopupHandler);
+            map.off("zoomstart", closePopupHandler);
+            map.off("dragstart", closePopupHandler);
+            map.off("click", closePopupHandler);
+            map.off("touchstart", closePopupHandler);
+
             map.remove();
             mapRef.current = null;
-        }
+        };
+    }, []);
 
-    }, [])
+    return (
+        <>
+            <div id="map"></div>
+            {selectedBar && popupPosition && (
+                <BarPopup
+                    bar={selectedBar}
+                    position={popupPosition}
+                    onClose={() => setSelectedBar(null)}
+                    map={mapRef.current}
+                />
+            )}
+        </>
+    );
 
-    return <div id="map"></div>;
 }
