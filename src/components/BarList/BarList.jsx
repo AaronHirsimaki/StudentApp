@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import barsData from "../../data/bars.json";
 import "./BarList.css"
 
-export default function BarList() {
+export default function BarList({ visibleBars }) {
 
     return (
         <div className="barlist">
             <ul>
-                {barsData.features.map((feature) => {
+                {visibleBars.map((feature) => {
                     const id = encodeURIComponent(feature.properties["@id"]);
                     const name = feature.properties.name || "Nimetön Baari";
 

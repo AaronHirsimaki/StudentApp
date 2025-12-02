@@ -24,10 +24,11 @@
     right: 8px;
 }
 
-.popup-more-button {
+.popup-button {
     background-color: #DEB887;
     color: white;
     border: none;
     border-radius: 4px;
     padding: 0.4rem 0.8rem;
+    margin: 4px;
 }

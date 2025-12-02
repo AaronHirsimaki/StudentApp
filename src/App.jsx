@@ -1,5 +1,5 @@
 import { Routes, Route, NavLink } from 'react-router-dom';
-import React from 'react';
+import React, { useState } from 'react';
 import MyMap from './components/Map/myMap';
 import BarList from './components/BarList/BarList';
 import "./App.css";
@@ -8,6 +8,8 @@ import SettingsPage from './pages/SettingsPage/SettingsPage';
 import BarPage from './pages/BarPage/BarPage';
 
 function App() {
+  
+  const [visibleBars, setVisibleBars] = useState([]);
 
   return (
     <div className="main-layout">
@@ -39,10 +41,10 @@ function App() {
             element={
               <>
                 <div className='map-section'>
-                  <MyMap />
+                  <MyMap setVisibleBars={setVisibleBars} />
                 </div>
                 <div className='list-section'>
-                  <BarList />
+                  <BarList visibleBars={visibleBars} />
                 </div>
               </>
             }
