@@ -44,17 +44,16 @@ export default function MyMap({ setVisibleBars }) {
     };
 
 
-    const beerEmojiIcon = L.divIcon({
-      html: "🍺",
-      className: "emoji-icon",
-      iconSize: [50, 50],
+    const beerIcon = L.icon({
+      iconUrl: "/images/beer4.png",
+      iconSize: [80, 80],
       iconAnchor: [25, 50],
       popupAnchor: [0, -30]
     });
 
     L
       .geoJSON(barsData, {
-        pointToLayer: (feature, latlng) => L.marker(latlng, { icon: beerEmojiIcon }),
+        pointToLayer: (feature, latlng) => L.marker(latlng, { icon: beerIcon }),
         onEachFeature: (feature, layer) => {
           layer.on("click", (event) => {
             setSelectedBar(feature);
