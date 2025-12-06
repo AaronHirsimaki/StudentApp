@@ -1,6 +1,6 @@
 .bar-popup-container {
     position: absolute;
-    transform: translate(40%, -110%);
+    transform: translate(50%, -100%);
     pointer-events: auto;
     z-index: 1000;
 }

@@ -1,62 +1,65 @@
-import { Routes, Route, NavLink } from 'react-router-dom';
-import React, { useState } from 'react';
-import MyMap from './components/Map/myMap';
-import BarList from './components/BarList/BarList';
+import { Routes, Route, NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import MyMap from "./components/Map/myMap";
+import BarList from "./components/BarList/BarList";
 import "./App.css";
-import ProfilePage from './pages/ProfilePage/ProfilePage';
-import SettingsPage from './pages/SettingsPage/SettingsPage';
-import BarPage from './pages/BarPage/BarPage';
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import SettingsPage from "./pages/SettingsPage/SettingsPage";
+import BarPage from "./pages/BarPage/BarPage";
 
 function App() {
-  
   const [visibleBars, setVisibleBars] = useState([]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <div className="main-layout">
-      <nav className="menu-section">
+      <button
+        className="hamburger-button"
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+      >
+        ☰
+      </button>
+      <nav className={`menu-section ${isMenuOpen ? "open" : ""}`}>
         <NavLink
           to="/"
-          className={({ isActive }) => isActive ? "active-link" : ""}
+          className={({ isActive }) => (isActive ? "active-link" : "")}
+          onClick={() => setIsMenuOpen(false)}
         >
           Map
         </NavLink>
         <NavLink
           to="/profile"
-          className={({ isActive }) => isActive ? "active-link" : ""}
+          className={({ isActive }) => (isActive ? "active-link" : "")}
+          onClick={() => setIsMenuOpen(false)}
         >
           Profile
         </NavLink>
         <NavLink
           to="/settings"
-          className={({ isActive }) => isActive ? "active-link" : ""}
+          className={({ isActive }) => (isActive ? "active-link" : "")}
+          onClick={() => setIsMenuOpen(false)}
         >
           Settings
         </NavLink>
       </nav>
 
-      <div className='app-layout'>
+      <div className="app-layout">
         <Routes>
           <Route
             path="/"
             element={
               <>
-                <div className='map-section'>
+                <div className="map-section">
                   <MyMap setVisibleBars={setVisibleBars} />
                 </div>
-                <div className='list-section'>
+                <div className="list-section">
                   <BarList visibleBars={visibleBars} />
                 </div>
               </>
             }
           />
-          <Route
-            path="/profile"
-            element={<ProfilePage />}
-          />
-          <Route
-            path="/settings"
-            element={<SettingsPage />}
-          />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/settings" element={<SettingsPage />} />
           <Route path="/bar/:id" element={<BarPage />} />
         </Routes>
       </div>
