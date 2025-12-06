@@ -1,8 +1,14 @@
 .bar-popup-container {
     position: absolute;
-    transform: translate(50%, -100%);
+    transform: translate(25%, -110%);
     pointer-events: auto;
     z-index: 1000;
+}
+
+@media (max-width: 768px) {
+    .bar-popup-container {
+        transform: translate(-45%, -110%);
+    }
 }
 
 .bar-popup-card {

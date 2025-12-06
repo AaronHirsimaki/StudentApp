@@ -46,7 +46,7 @@ export default function MyMap({ setVisibleBars }) {
 
     const beerIcon = L.icon({
       iconUrl: "/images/beer4.png",
-      iconSize: [80, 80],
+      iconSize: [60, 60],
       iconAnchor: [25, 50],
       popupAnchor: [0, -30]
     });

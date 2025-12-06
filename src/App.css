@@ -56,7 +56,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
+    width: 100%;
+    height: 50vh;
 }
 
 .list-section {
@@ -131,4 +132,5 @@ body {
     padding: 1rem;
     font-size: 1.3rem;
   }
+  
 }
