@@ -14,7 +14,7 @@ export default function ProfilePage() {
       const { data, error } = await supabase
         .from("profiles")
         .select("*")
-        .eq("id", user.id)
+        .eq("id", supabase.auth.getUser()?.data?.user?.id)
         .single();
 
       if (!error) setProfile(data);
