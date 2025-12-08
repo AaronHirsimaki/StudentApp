@@ -1,9 +1,7 @@
 # Student App
 
-Liibalaaba about the project
-
+Sovellus missä käyttäjät voivat arvostella juottoloiden WC tiloja. Varmaan jotain muutakin tulevaisuudessa
 ## Tech
 
-Liibalaaba about the tech
-
+React Javascript ja ihan perus css + supabase
 ## Screeshots and more
