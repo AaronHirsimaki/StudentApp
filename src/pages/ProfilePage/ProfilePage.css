@@ -56,3 +56,19 @@
     padding: 5%;
     border-radius: 8px;
 }
+
+.profile-logout-button {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #806443;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.profile-logout-button:hover {
+  background-color: #e1bb80;
+}
