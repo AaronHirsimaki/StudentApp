@@ -5,23 +5,46 @@ import pfp from "../../images/5.png"; // oletuskuva
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const user = supabase.auth.user();
-      if (!user) return; // ei ole kirjautunutta käyttäjää
+      // 1️⃣ Hae käyttäjä V2-tyylillä
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+
+      if (userError || !user) {
+        console.log("No user logged in.");
+        setLoading(false);
+        return;
+      }
 
       const { data, error } = await supabase
         .from("profiles")
         .select("*")
-        .eq("id", supabase.auth.getUser()?.data?.user?.id)
+        .eq("id", user.id)
         .single();
 
-      if (!error) setProfile(data);
+      if (error) {
+        console.error("Profile fetch error:", error);
+      } else {
+        setProfile(data);
+      }
+
+      setLoading(false);
     };
 
     fetchProfile();
   }, []);
+
+  // 3️⃣ Näytä lataus
+  if (loading) return <p>Loading profile...</p>;
+
+  // 4️⃣ Jos profiilia ei löytynyt
+  if (!profile) return <p>No profile found.</p>;
+  
   return (
     <div className="profile-section">
       <div className="profile">
