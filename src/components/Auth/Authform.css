@@ -1,35 +1,174 @@
+/* ---------------------------------------------------
+   MODAL BACKGROUND
+--------------------------------------------------- */
 .auth-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5); /* himmennys taustalle */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background: #6f4e37;
+    backdrop-filter: blur(4px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 3000;
 }
 
+/* ---------------------------------------------------
+   AUTH BOX (Card)
+--------------------------------------------------- */
 .auth-box {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
+    background: #352208;
+    padding: 2rem;
+    width: 350px;
+
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.25),
+        0 8px 25px rgba(0, 0, 0, 0.2);
+
+    position: relative;
 }
 
-.close-button {
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
+/* ---------------------------------------------------
+   CLOSE BUTTON (X)
+--------------------------------------------------- */
+/*.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+
+    background: #806443;
+    color: white;
+    font-size: 22px;
+
+    padding: 4px 10px; 
+
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: background 0.2s;
+    
+    z-index: 20;
+}*/
+
+.close-btn:hover {
+    background: #5c3e2a;
 }
 
-.auth-toggle button {
-  margin: 0 5px;
+/* ---------------------------------------------------
+   TAB BUTTONS (Login / Signup)
+--------------------------------------------------- */
+.tab-buttons {
+    display: flex;
+    width: 100%;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
 }
+
+.tab-buttons button {
+    flex: 1;
+    padding: 0.6rem 1rem;
+
+    background: #806443;
+    color: white;
+    font-size: 16px;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.tab-buttons button:hover {
+    background: #5c3e2a;
+}
+
+.tab-buttons .active {
+    background: #e1bb80;
+    font-weight: bold;
+    color: black;
+}
+
+/* ---------------------------------------------------
+   INPUT FIELDS
+--------------------------------------------------- */
+.auth-box input {
+    width: 100%;
+    padding: 0.7rem;
+    margin: 0.5rem 0;
+
+    background: #fff;
+    color: #352208;
+
+    font-size: 15px;
+
+    border: 2px solid #806443;
+    border-radius: 8px;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+.auth-box input:focus {
+    outline: none;
+    border-color: #e1bb80;
+    box-shadow: 0 0 6px rgba(225, 187, 128, 0.6);
+}
+
+/* ---------------------------------------------------
+   SUBMIT BUTTON (Login / Signup)
+--------------------------------------------------- */
+.auth-box button {
+    margin-top: 0.7rem;
+    width: 100%;
+    padding: 0.8rem;
+
+    background: #6f4e37;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.auth-box button:hover {
+    background: #5c3e2a;
+}
+
+/* ---------------------------------------------------
+   ERROR MESSAGE
+--------------------------------------------------- */
+.auth-box p {
+    margin-top: 0.5rem;
+
+    background:#6f4e37;
+    color: #fff;
+
+    text-align: center;
+    font-weight: bold;
+
+    padding: 0.4rem 0.6rem;
+
+    border-radius: 6px;
+}
+

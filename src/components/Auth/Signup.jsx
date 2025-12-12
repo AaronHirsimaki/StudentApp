@@ -1,17 +1,34 @@
 import { useState } from "react";
 import { supabase } from "../../supabaseClient";
 
+import avatar1 from "../../images/1.png";
+import avatar2 from "../../images/2.png";
+import avatar3 from "../../images/3.png";
+import avatar4 from "../../images/4.png";
+import avatar5 from "../../images/5.png";
+import avatar6 from "../../images/6.png";
+
+import "./Authform.css";
+
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [favouriteSpot, setFavouriteSpot] = useState("");
+  const [bio, setBio] = useState("");
+  const [selectedAvatar, setSelectedAvatar] = useState("");
   const [error, setError] = useState(null);
+
+  const avatars = [avatar1, avatar2, avatar3, avatar4, avatar5, avatar6];
+
 
   const handleSignup = async () => {
     // 1️⃣ Luo käyttäjä authiin
     const { data, error: signUpError } = await supabase.auth.signUp({
       email,
       password,
+      favouriteSpot,
+      bio,
       options: {
         data: { username },
       },
@@ -47,7 +64,32 @@ export default function Signup() {
   };
 
   return (
-    <div>
+    <>
+      <div className="avatar-selection">
+        <p>Choose your avatar</p>
+        <div className="avatars">
+          {avatars.map((avatar) => (
+            <img
+              key={avatar}
+              src={avatar}
+              alt="avatar"
+              className={selectedAvatar === avatar ? "selected" : ""}
+              onClick={() => setSelectedAvatar(avatar)}
+              style={{
+                width: 80,
+                height: 80,
+                cursor: "pointer",
+                border:
+                  selectedAvatar === avatar
+                    ? "2px solid blue"
+                    : "2px solid transparent",
+                borderRadius: "50%",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
       <input
         type="email"
         placeholder="Email"
@@ -63,8 +105,18 @@ export default function Signup() {
         placeholder="Username"
         onChange={(e) => setUsername(e.target.value)}
       />
+      <input
+        type="text"
+        placeholder="Favourite bar"
+        onChange={(e) => setFavouriteSpot(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="About you"
+        onChange={(e) => setBio(e.target.value)}
+      />
       <button onClick={handleSignup}>Sign Up</button>
       {error && <p>{error}</p>}
-    </div>
+    </>
   );
 }

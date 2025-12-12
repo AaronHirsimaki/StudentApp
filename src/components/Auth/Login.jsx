@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { supabase } from '../../supabaseClient';
+import "./Authform.css"
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -22,11 +23,23 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+    <>
+      <input
+        type="email"
+        placeholder="Email"
+        onChange={(e) => setEmail(e.target.value)}
+      />
+  
+      <input
+        type="password"
+        placeholder="Password"
+        onChange={(e) => setPassword(e.target.value)}
+      />
+  
       <button onClick={handleLogin}>Login</button>
+  
       {error && <p>{error}</p>}
-    </div>
+    </>
   );
+
 }

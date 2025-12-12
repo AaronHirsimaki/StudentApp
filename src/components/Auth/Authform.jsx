@@ -9,7 +9,7 @@ export default function AuthForm({ onClose }) {
   return (
     <div className="auth-modal">
       <div className="auth-box">
-        <button onClick={onClose} className="close-btn">×</button>
+        <button onClick={onClose} className="close-btn">Close</button>
         <div className="tab-buttons">
           <button onClick={() => setIsLogin(true)} className={isLogin ? "active" : ""}>Login</button>
           <button onClick={() => setIsLogin(false)} className={!isLogin ? "active" : ""}>Sign Up</button>
