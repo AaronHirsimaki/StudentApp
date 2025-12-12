@@ -27,10 +27,13 @@ export default function Signup() {
     const { data, error: signUpError } = await supabase.auth.signUp({
       email,
       password,
-      favouriteSpot,
-      bio,
       options: {
-        data: { username },
+        data: { 
+          username,
+          favouriteSpot,
+          bio,
+          avatar: selectedAvatar
+        },
       },
     });
 
@@ -52,6 +55,9 @@ export default function Signup() {
       {
         id: user.id, // auth users -taulun id
         username,
+        favouriteSpot,
+        bio,
+        avatar: selectedAvatar
       },
     ]);
 
@@ -73,18 +79,8 @@ export default function Signup() {
               key={avatar}
               src={avatar}
               alt="avatar"
-              className={selectedAvatar === avatar ? "selected" : ""}
+              className={`avatar-image ${selectedAvatar === avatar ? "selected" : ""}`}
               onClick={() => setSelectedAvatar(avatar)}
-              style={{
-                width: 80,
-                height: 80,
-                cursor: "pointer",
-                border:
-                  selectedAvatar === avatar
-                    ? "2px solid blue"
-                    : "2px solid transparent",
-                borderRadius: "50%",
-              }}
             />
           ))}
         </div>
