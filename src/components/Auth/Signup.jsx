@@ -19,7 +19,15 @@ export default function Signup() {
   const [selectedAvatar, setSelectedAvatar] = useState("");
   const [error, setError] = useState(null);
 
-  const avatars = [avatar1, avatar2, avatar3, avatar4, avatar5, avatar6];
+  const avatars = [
+    { id: "avatar1", src: avatar1 },
+    { id: "avatar2", src: avatar2 },
+    { id: "avatar3", src: avatar3 },
+    { id: "avatar4", src: avatar4 },
+    { id: "avatar5", src: avatar5 },
+    { id: "avatar6", src: avatar6 },
+  ];
+
 
 
   const handleSignup = async () => {
@@ -30,9 +38,9 @@ export default function Signup() {
       options: {
         data: { 
           username,
-          favouriteSpot,
+          favourite_spot: favouriteSpot,
           bio,
-          avatar: selectedAvatar
+          avatar_url: selectedAvatar
         },
       },
     });
@@ -50,21 +58,21 @@ export default function Signup() {
       return;
     }
 
-    // 2️⃣ Lisää profiilitauluun
-    const { error: profileError } = await supabase.from("profiles").insert([
-      {
-        id: user.id, // auth users -taulun id
-        username,
-        favouriteSpot,
-        bio,
-        avatar: selectedAvatar
-      },
-    ]);
+    // // 2️⃣ Lisää profiilitauluun
+    // const { error: profileError } = await supabase.from("profiles").insert([
+    //   {
+    //     id: user.id, // auth users -taulun id
+    //     username,
+    //     favourite_spot: favouriteSpot,
+    //     bio,
+    //     avatar_url: selectedAvatar
+    //   },
+    // ]);
 
-    if (profileError) {
-      setError(profileError.message);
-      return;
-    }
+    // if (profileError) {
+    //   setError(profileError.message);
+    //   return;
+    // }
 
     alert("Käyttäjä luotu onnistuneesti!");
   };
@@ -76,13 +84,16 @@ export default function Signup() {
         <div className="avatars">
           {avatars.map((avatar) => (
             <img
-              key={avatar}
-              src={avatar}
+              key={avatar.id}
+              src={avatar.src}
               alt="avatar"
-              className={`avatar-image ${selectedAvatar === avatar ? "selected" : ""}`}
-              onClick={() => setSelectedAvatar(avatar)}
+              className={`avatar-image ${
+                selectedAvatar === avatar.id ? "selected" : ""
+              }`}
+              onClick={() => setSelectedAvatar(avatar.id)}
             />
           ))}
+
         </div>
       </div>
 
