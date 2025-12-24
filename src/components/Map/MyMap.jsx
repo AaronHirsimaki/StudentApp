@@ -7,29 +7,52 @@ import barsData from "../../data/bars.json";
 import BarPopup from "../BarPopup/BarPopup";
 
 export default function MyMap({ setVisibleBars }) {
-
   const mapRef = useRef();
   const [selectedBar, setSelectedBar] = useState(null);
   const [popupPosition, setPopupPosition] = useState(null);
-
+  const [userLocation, setUserLocation] = useState(null);
 
   useEffect(() => {
     if (mapRef.current) return;
 
     const map = L.map("map").setView([60.1695, 24.9354], 18);
     mapRef.current = map;
-    L
-      .tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+    
+          map.setView([latitude, longitude], 18);
+    
+          L.circleMarker([latitude, longitude], {
+            radius: 8,
+            color: "#352208",
+            fillColor: "#e1bb80",
+            fillOpacity: 1,
+          }).addTo(map);
+        },
+        (error) => {
+          console.error("Sijaintia ei saatu:", error);
+        }
+      );
+    }
+
+    
+    L.tileLayer(
+      "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+      {
         maxZoom: 19,
         //minZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      })
-      .addTo(map);
-    
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      },
+    ).addTo(map);
+
     const filterBarsByBounds = (bounds) => {
       const southWest = bounds.getSouthWest();
       const northEast = bounds.getNorthEast();
-    
+
       const filtered = barsData.features.filter((feature) => {
         const [lng, lat] = feature.geometry.coordinates;
         return (
@@ -39,30 +62,27 @@ export default function MyMap({ setVisibleBars }) {
           lng <= northEast.lng
         );
       });
-    
+
       setVisibleBars(filtered);
     };
-
 
     const beerIcon = L.icon({
       iconUrl: "/images/beer4.png",
       iconSize: [60, 60],
       iconAnchor: [25, 50],
-      popupAnchor: [0, -30]
+      popupAnchor: [0, -30],
     });
 
-    L
-      .geoJSON(barsData, {
-        pointToLayer: (feature, latlng) => L.marker(latlng, { icon: beerIcon }),
-        onEachFeature: (feature, layer) => {
-          layer.on("click", (event) => {
-            setSelectedBar(feature);
-            setPopupPosition(event.latlng);
-          });
-        },
-      }).addTo(map);
+    L.geoJSON(barsData, {
+      pointToLayer: (feature, latlng) => L.marker(latlng, { icon: beerIcon }),
+      onEachFeature: (feature, layer) => {
+        layer.on("click", (event) => {
+          setSelectedBar(feature);
+          setPopupPosition(event.latlng);
+        });
+      },
+    }).addTo(map);
     filterBarsByBounds(map.getBounds());
-
 
     const closePopupHandler = () => {
       setSelectedBar(null);
@@ -72,12 +92,11 @@ export default function MyMap({ setVisibleBars }) {
     map.on("movestart", closePopupHandler);
     map.on("zoomstart", closePopupHandler);
     map.on("dragstart", closePopupHandler);
-    map.on("click", closePopupHandler);      // halutessasi click sulkee myös
+    map.on("click", closePopupHandler); // halutessasi click sulkee myös
     map.on("touchstart", closePopupHandler); // mobiilikosketus
     map.on("moveend", () => {
       filterBarsByBounds(map.getBounds());
     });
-
 
     return () => {
       // Poistetaan eventit ennen map.remove, jotta ei jää roikkuvia kuulijoita
@@ -89,6 +108,23 @@ export default function MyMap({ setVisibleBars }) {
 
       map.remove();
       mapRef.current = null;
+
+      if (!navigator.geolocation) {
+        console.error("Geolocation ei ole tuettu");
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error("Sijaintia ei saatu:", error);
+        },
+      );
     };
   }, []);
 
@@ -105,5 +141,4 @@ export default function MyMap({ setVisibleBars }) {
       )}
     </>
   );
-
 }
