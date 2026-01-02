@@ -6,4 +6,4 @@ In the future, the application may expand beyond restroom reviews to include add
 React Javascript, css and supabase at the moment.
 
 ## Screeshots and more
-!(screenshots/studentappscreenshot.png)
+<img src="screenshots/studentappscreenshot.png" width="600" />
