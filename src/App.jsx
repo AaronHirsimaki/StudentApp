@@ -1,6 +1,6 @@
 import { Routes, Route, NavLink } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import MyMap from "./components/Map/myMap";
+import MyMap from "./components/Map/MyMap";
 import BarList from "./components/BarList/BarList";
 import "./App.css";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
@@ -23,21 +23,20 @@ function App() {
       if (!currentUser) setShowAuth(true);
       setUser(currentUser);
     };
-  
+
     fetchUser();
-  
+
     const { data: listener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         setUser(session?.user || null);
         setShowAuth(!session?.user);
-      }
+      },
     );
-  
+
     return () => {
       listener.subscription.unsubscribe();
     };
   }, []);
-
 
   return (
     <>
