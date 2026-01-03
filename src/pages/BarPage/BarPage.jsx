@@ -28,17 +28,21 @@ export default function BarPage() {
     <div className="bar-page">
       <div className="bar-card">
         <h1>{name || "bar name not found"}</h1>
-        <p>
-          <strong>Address:</strong> {street} {number}
-        </p>
-        {opening_hours && (
+        <div className="bar-info">
           <p>
-            <strong>Open:</strong> {opening_hours}
+            <strong>Address:</strong> {street || "We dont know lol"} {number}
           </p>
-        )}
+          {opening_hours && (
+            <p>
+              <strong>Open:</strong> {opening_hours}
+            </p>
+          )}
+        </div>
         <p>Rating here</p>
-        <button>Add comment button :D</button>
-        <p>Comments here</p>
+        <div className="comment-button">
+          <button>comment</button>
+        </div>
+        <p>Comments coming soon</p>
       </div>
     </div>
   );

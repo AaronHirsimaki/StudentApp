@@ -37,3 +37,34 @@
   padding: 0.5rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+
+.bar-info {
+    background-color: #e1bb80;
+    padding: 25px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+.comment-button {
+    display: flex;
+    width: 100%;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.comment-button button {
+    flex: 1;
+    padding: 0.6rem 1rem;
+
+    background: #806443;
+    color: white;
+    font-size: 16px;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+    transition: background 0.2s;
+}
