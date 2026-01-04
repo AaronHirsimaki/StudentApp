@@ -1,3 +1,7 @@
+.profile-page {
+  position: relative;
+}
+
 .profile-section {
     display: flex;
     flex-direction: column;
@@ -71,4 +75,32 @@
 
 .profile-logout-button:hover {
   background-color: #e1bb80;
+}
+
+/* tumma läpinäkyvä layer */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* teksti tai spinner */
+.loading-text {
+  color: white;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.no-profile-text {
+  color: white;
+  font-size: 1.2rem;
+  margin-top: 2rem;
 }

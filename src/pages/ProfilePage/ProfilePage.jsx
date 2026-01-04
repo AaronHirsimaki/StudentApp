@@ -12,7 +12,7 @@ import avatar6 from "../../images/6.png";
 export default function ProfilePage() {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-  
+
   const avatarMap = {
     avatar1,
     avatar2,
@@ -21,7 +21,6 @@ export default function ProfilePage() {
     avatar5,
     avatar6,
   };
-
 
   const navigate = useNavigate();
 
@@ -62,28 +61,32 @@ export default function ProfilePage() {
     fetchProfile();
   }, []);
 
-  // 3️⃣ Näytä lataus
-  if (loading) return <p>Loading profile...</p>;
-
-  // 4️⃣ Jos profiilia ei löytynyt
-  if (!profile) return <p>No profile found.</p>;
-
   return (
-    <div className="profile-section">
-      <div className="profile">
-        <img
-          src={avatarMap[profile?.avatar_url]}
-          alt="profileImage"
-          className="profile-image"
-        />
-        <h1>{profile.username}</h1>
-        <h2>Favourite spot: {profile.favourite_spot || "Favourite spot"}</h2>
-        <h2>About You</h2>
-        <p>{profile.bio}</p>
-        <p>{profile.badges}</p>
-        <button onClick={handleLogout} className="profile-logout-button">
-          Log out
-        </button>
+    <div className="profile-page">
+      {loading && (
+            <div className="loading-overlay">
+              <p className="loading-text">Loading profile...</p>
+            </div>
+          )}
+      {!loading && !profile && (
+        <p className="no-profile-text">No profile found.</p>
+      )}
+      <div className="profile-section">
+        <div className="profile">
+          <img
+            src={avatarMap[profile?.avatar_url]}
+            alt="profileImage"
+            className="profile-image"
+          />
+          <h1>{profile.username}</h1>
+          <h2>Favourite spot: {profile.favourite_spot || "Favourite spot"}</h2>
+          <h2>About You</h2>
+          <p>{profile.bio}</p>
+          <p>{profile.badges}</p>
+          <button onClick={handleLogout} className="profile-logout-button">
+            Log out
+          </button>
+        </div>
       </div>
     </div>
   );
