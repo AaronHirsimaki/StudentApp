@@ -78,11 +78,11 @@ export default function ProfilePage() {
             alt="profileImage"
             className="profile-image"
           />
-          <h1>{profile.username}</h1>
-          <h2>Favourite spot: {profile.favourite_spot || "Favourite spot"}</h2>
+          <h1>{profile?.username}</h1>
+          <h2>Favourite spot: {profile?.favourite_spot || "Favourite spot"}</h2>
           <h2>About You</h2>
-          <p>{profile.bio}</p>
-          <p>{profile.badges}</p>
+          <p>{profile?.bio}</p>
+          <p>{profile?.badges}</p>
           <button onClick={handleLogout} className="profile-logout-button">
             Log out
           </button>
