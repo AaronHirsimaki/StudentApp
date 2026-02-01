@@ -1,6 +1,7 @@
 import barsData from "../../data/bars.json";
 import { useParams } from "react-router-dom";
 import "./BarPage.css";
+import BackButton from "../../components/BackButton/BackButton";
 import defaultBarImage from "../../images/1.png";
 
 export default function BarPage() {
@@ -27,6 +28,7 @@ export default function BarPage() {
   return (
     <div className="bar-page">
       <div className="bar-card">
+        <BackButton label="Back to map" />
         <h1>{name || "bar name not found"}</h1>
         <div className="bar-info">
           <p>

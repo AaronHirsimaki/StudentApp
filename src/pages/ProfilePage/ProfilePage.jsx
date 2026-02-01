@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../supabaseClient"; // varmista että polku on oikein
 import { useNavigate } from "react-router-dom";
 import "./ProfilePage.css";
+import BackButton from "../../components/BackButton/BackButton";
 import avatar1 from "../../images/1.png";
 import avatar2 from "../../images/2.png";
 import avatar3 from "../../images/3.png";
@@ -73,6 +74,7 @@ export default function ProfilePage() {
       )}
       <div className="profile-section">
         <div className="profile">
+          <BackButton />
           <img
             src={avatarMap[profile?.avatar_url]}
             alt="profileImage"
