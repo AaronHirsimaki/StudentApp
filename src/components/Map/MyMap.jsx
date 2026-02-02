@@ -17,14 +17,14 @@ export default function MyMap({ setVisibleBars }) {
 
     const map = L.map("map").setView([60.1695, 24.9354], 18);
     mapRef.current = map;
-    
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-    
+
           map.setView([latitude, longitude], 18);
-    
+
           L.circleMarker([latitude, longitude], {
             radius: 8,
             color: "#352208",
@@ -38,7 +38,7 @@ export default function MyMap({ setVisibleBars }) {
       );
     }
 
-    
+
     L.tileLayer(
       "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
       {
@@ -77,8 +77,16 @@ export default function MyMap({ setVisibleBars }) {
       pointToLayer: (feature, latlng) => L.marker(latlng, { icon: beerIcon }),
       onEachFeature: (feature, layer) => {
         layer.on("click", (event) => {
-          setSelectedBar(feature);
-          setPopupPosition(event.latlng);
+
+          map.panTo(event.latlng, {
+            animate: true,
+            duration: 0.5,
+          });
+
+          map.once("moveend", () => {
+            setSelectedBar(feature);
+            setPopupPosition(event.latlng);
+          });
         });
       },
     }).addTo(map);
