@@ -15,13 +15,20 @@ function App() {
 
   const [user, setUser] = useState(null);
   const [showAuth, setShowAuth] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
-      const { data } = await supabase.auth.getSession();
-      const currentUser = data.session?.user || null;
-      if (!currentUser) setShowAuth(true);
-      setUser(currentUser);
+      try {
+        const { data } = await supabase.auth.getSession();
+        const currentUser = data.session?.user || null;
+        if (!currentUser) setShowAuth(true);
+        setUser(currentUser);
+      } catch {
+        setShowAuth(true);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchUser();
@@ -37,6 +44,8 @@ function App() {
       listener.subscription.unsubscribe();
     };
   }, []);
+
+  if (loading) return null;
 
   return (
     <>

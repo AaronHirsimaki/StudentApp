@@ -5,9 +5,7 @@ export default function SettingsPage() {
     <div className="settings-section">
       <div className="settings">
         <h1>Settings</h1>
-        <p>Täällä voisi säätää sovelluksen asetuksia.</p>
-        <h2>darkmode/lightmode</h2>
-        <h2>kieliasetukset</h2>
+        <p>Settings coming soon.</p>
       </div>
     </div>
   );

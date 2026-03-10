@@ -18,6 +18,7 @@ export default function Signup() {
   const [bio, setBio] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState("");
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const avatars = [
     { id: "avatar1", src: avatar1 },
@@ -93,7 +94,7 @@ export default function Signup() {
     //   return;
     // }
 
-    alert("Käyttäjä luotu onnistuneesti!");
+    setSuccess(true);
   };
 
   return (
@@ -142,6 +143,7 @@ export default function Signup() {
       />
       <button onClick={handleSignup}>Sign Up</button>
       {error && <p>{error}</p>}
+      {success && <p>Account created! You can now log in.</p>}
     </>
   );
 }

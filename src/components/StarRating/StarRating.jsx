@@ -32,7 +32,6 @@ export default function StarRating({ maxStars = 5, onRatingSelect }) {
                     );
                 })}
             </div>
-            <button>Confirm</button>
         </div>
     );
 }

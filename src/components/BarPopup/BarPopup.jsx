@@ -10,6 +10,7 @@ export default function BarPopup({ bar, position, onClose, map }) {
   const [showRating, setShowRating] = useState(false);
   const [averageRating, setAverageRating] = useState(null);
   const [ratingCount, setRatingCount] = useState(0);
+  const [ratingMessage, setRatingMessage] = useState(null);
 
   useEffect(() => {
     if (!map || !popupRef.current) return;
@@ -73,6 +74,8 @@ export default function BarPopup({ bar, position, onClose, map }) {
           </>
         )}
 
+        {ratingMessage && <p className="rating-message">{ratingMessage}</p>}
+
         {showRating && (
           <div className="rating-section">
             <StarRating
@@ -88,9 +91,10 @@ export default function BarPopup({ bar, position, onClose, map }) {
                   setAverageRating(calculateAverageRating(reviews));
 
                   setShowRating(false);
+                  setRatingMessage("Rating saved!");
                 } catch (error) {
                   console.error("Rating failed:", error.message);
-                  alert("You must be logged in to rate");
+                  setRatingMessage("You must be logged in to rate.");
                 }
               }}
             />

@@ -48,7 +48,7 @@ export default function BarPage() {
         <h1>{name || "bar name not found"}</h1>
         <div className="bar-info">
           <p>
-            <strong>Address:</strong> {street || "We dont know lol"} {number}
+            <strong>Address:</strong> {street ? `${street} ${number}` : "Address not available"}
           </p>
           {opening_hours && (
             <p>
