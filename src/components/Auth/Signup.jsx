@@ -28,15 +28,34 @@ export default function Signup() {
     { id: "avatar6", src: avatar6 },
   ];
 
+  async function isEmailAllowed(email) {
+    const { data, error } = await supabase
+      .from("allowed_emails")
+      .select("email")
+      .eq("email", email)
+      .single();
 
+    if (error || !data) {
+      return false;
+    }
+
+    return true;
+  }
 
   const handleSignup = async () => {
+    const allowed = await isEmailAllowed(email);
+
+    if (!allowed) {
+      setError("This email is not invited to the beta.");
+      return;
+    }
+
     // 1️⃣ Luo käyttäjä authiin
     const { data, error: signUpError } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        data: { 
+        data: {
           username,
           favourite_spot: favouriteSpot,
           bio,
@@ -87,9 +106,8 @@ export default function Signup() {
               key={avatar.id}
               src={avatar.src}
               alt="avatar"
-              className={`avatar-image ${
-                selectedAvatar === avatar.id ? "selected" : ""
-              }`}
+              className={`avatar-image ${selectedAvatar === avatar.id ? "selected" : ""
+                }`}
               onClick={() => setSelectedAvatar(avatar.id)}
             />
           ))}
